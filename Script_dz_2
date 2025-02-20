@@ -1,9 +1,3 @@
---=============== МОДУЛЬ 2. РАБОТА С БАЗАМИ ДАННЫХ =======================================
---= ПОМНИТЕ, ЧТО НЕОБХОДИМО УСТАНОВИТЬ ВЕРНОЕ СОЕДИНЕНИЕ И ВЫБРАТЬ СХЕМУ PUBLIC===========
-SET search_path TO public;
-
---======== ОСНОВНАЯ ЧАСТЬ ==============
-
 --ЗАДАНИЕ №1
 --Выведите уникальные названия городов из таблицы городов.
 
@@ -77,6 +71,7 @@ where (rating='R' and rental_rate between 0.00 and 3.00) or (rating='PG-13' and 
 
 --ЗАДАНИЕ №2
 --Получите информацию о трёх фильмах с самым длинным описанием фильма.
+
 select film_id , title, description
 from film
 order by char_length(description) desc 
@@ -86,6 +81,7 @@ limit 3
 -- Выведите Email каждого покупателя, разделив значение Email на 2 отдельных колонки:
 --в первой колонке должно быть значение, указанное до @, 
 --во второй колонке должно быть значение, указанное после @.
+
 select customer_id, email,
 	split_part(email, '@',1) "Email Before @",
 	split_part(email, '@',2) "Email After @"
@@ -95,9 +91,6 @@ from customer
 --ЗАДАНИЕ №4
 --Доработайте запрос из предыдущего задания, скорректируйте значения в новых колонках: 
 --первая буква строки должна быть заглавной, остальные строчными.
---select customer_id, 
-	--upper(substring(email from 1 for 1))||lower(substring(email from 2 for length(email)))
---from customer
 
 select customer_id, 
 	upper(substring((split_part(email, '@',1)) from 1 for 1))||lower(substring((split_part(email, '@',1)) from 2 for length((split_part(email, '@',1)))))  "Email Before @",
